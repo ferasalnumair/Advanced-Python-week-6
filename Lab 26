@@ -1,0 +1,25 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+df = pd.read_csv("data/day26_distributions.csv")
+num_cols = df.select_dtypes(include="number").columns
+for col in num_cols:
+    plt.figure()
+    sns.histplot(df[col], kde=True)
+    plt.title(col)
+    plt.show()
+print("Summary statistics")
+for col in num_cols:
+    print(col)
+    print("Mean:", df[col].mean())
+    print("Median:", df[col].median())
+    print("Std:", df[col].std())
+    print("Skew:", df[col].skew())
+    print("-" * 20)
+skewed_col = df[num_cols].skew().abs().sort_values(ascending=False).index[0]
+df[skewed_col + "_log"] = np.log1p(df[skewed_col])
+plt.figure()
+sns.histplot(df[skewed_col + "_log"], kde=True)
+plt.title(skewed_col + "_log")
+plt.show()
