@@ -1,0 +1,21 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv("data/day28_groupby.csv")
+
+# Group by region and segment
+grouped = df.groupby(["region", "segment"])["sales"].mean().reset_index()
+
+print(grouped)
+
+# Plot mean sales by region
+mean_region = df.groupby("region")["sales"].mean().reset_index()
+
+plt.figure()
+sns.barplot(x="region", y="sales", data=mean_region)
+plt.title("Mean Sales by Region")
+plt.xlabel("Region")
+plt.ylabel("Mean Sales")
+plt.show()
