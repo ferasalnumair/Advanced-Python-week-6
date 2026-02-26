@@ -1,0 +1,21 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+df = pd.read_csv("data/day29_correlations.csv")
+
+# Compute correlation matrix
+corr = df.corr()
+
+print(corr)
+
+# Plot heatmap
+plt.figure()
+sns.heatmap(corr, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
+
+# Scatter plot for strongest positive correlation pair
+sns.pairplot(df)
+plt.show()
